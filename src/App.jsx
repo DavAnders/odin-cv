@@ -2,48 +2,63 @@ import { useState } from "react";
 import GeneralInfo from "./components/GeneralInfo/GeneralInfo";
 import Education from "./components/Education/Education";
 import Experience from "./components/Experience/Experience";
+import DisplaySection from "./components/DisplaySection/DisplaySection";
 
 function App() {
   const [generalInfo, setGeneralInfo] = useState({});
   const [education, setEducation] = useState({});
   const [experience, setExperience] = useState({});
 
+  const [editGeneral, setEditGeneral] = useState(false);
+  const [editEducation, setEditEducation] = useState(false);
+  const [editExperience, setEditExperience] = useState(false);
+
   const handleGeneralInfoUpdate = (info) => {
     setGeneralInfo(info);
+    setEditGeneral(false);
   };
 
   const handleEducationUpdate = (info) => {
     setEducation(info);
+    setEditEducation(false);
   };
 
   const handleExperienceUpdate = (info) => {
     setExperience(info);
+    setEditExperience(false);
   };
 
   return (
     <div>
-      <GeneralInfo onUpdate={handleGeneralInfoUpdate} />
-      <Education onUpdate={handleEducationUpdate} />
-      <Experience onUpdate={handleExperienceUpdate} />
-      <div>
-        <h2>General Information</h2>
-        <p>Name: {generalInfo.name}</p>
-        <p>Email: {generalInfo.email}</p>
-        <p>Phone: {generalInfo.phone}</p>
-      </div>
-      <div>
-        <h2>Education</h2>
-        <p>School: {education.schoolName}</p>
-        <p>Title: {education.title}</p>
-        <p>Date of Study: {education.studyPeriod}</p>
-      </div>
-      <div>
-        <h2>Experience</h2>
-        <p>Company Name: {experience.companyName}</p>
-        <p>Position Title: {experience.positionTitle}</p>
-        <p>Responsibilties: {experience.responsibilities}</p>
-        <p>Dates Employed: {experience.periodEmployed}</p>
-      </div>
+      {editGeneral ? (
+        <GeneralInfo onUpdate={handleGeneralInfoUpdate} />
+      ) : (
+        <DisplaySection
+          sectionTitle="General Information"
+          data={generalInfo}
+          onEdit={() => setEditGeneral(true)}
+        />
+      )}
+
+      {editEducation ? (
+        <Education onUpdate={handleEducationUpdate} />
+      ) : (
+        <DisplaySection
+          sectionTitle="Education"
+          data={education}
+          onEdit={() => setEditEducation(true)}
+        />
+      )}
+
+      {editExperience ? (
+        <Experience onUpdate={handleExperienceUpdate} />
+      ) : (
+        <DisplaySection
+          sectionTitle="Experience"
+          data={experience}
+          onEdit={() => setEditExperience(true)}
+        />
+      )}
     </div>
   );
 }
