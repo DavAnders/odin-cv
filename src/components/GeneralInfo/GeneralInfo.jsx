@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./generalInfo.css";
+import "/src/styles/generalInfo.css";
 
 function GeneralInfo({ onUpdate }) {
   const [name, setName] = useState("");

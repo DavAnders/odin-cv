@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "/src/styles/education.css";
 
 function Education({ onUpdate }) {
   const [schoolName, setSchoolName] = useState("");
